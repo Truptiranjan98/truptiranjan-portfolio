@@ -1,0 +1,99 @@
+.curtain { position: fixed; inset: 0; z-index: 100; }
+.curtain.gone { display: none; }
+
+.shutter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50.2%; /* overlap hides a hairline seam on fractional-DPR screens */
+  background: var(--ink);
+  transition: transform 780ms cubic-bezier(.76, 0, .24, 1);
+}
+.shutter.top { top: 0; }
+.shutter.bot { bottom: 0; }
+.curtain.lift .shutter.top { transform: translateY(-100%); }
+.curtain.lift .shutter.bot { transform: translateY(100%); }
+
+.boot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: max(28px, env(safe-area-inset-top)) max(28px, env(safe-area-inset-right))
+           max(28px, env(safe-area-inset-bottom)) max(28px, env(safe-area-inset-left));
+  transition: opacity 220ms ease;
+}
+.curtain.lift .boot { opacity: 0; }
+.boot-inner { width: 100%; max-width: 520px; }
+
+.boot-line {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: #9AA0BE;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 5px 0;
+  opacity: 0;
+  transform: translateY(4px);
+  animation: bootIn 260ms ease forwards;
+}
+.boot-line b { color: var(--violet-3); font-weight: 500; }
+.boot-line .ok { color: var(--cyan); }
+@keyframes bootIn { to { opacity: 1; transform: none; } }
+
+.boot-bar {
+  height: 2px;
+  background: rgba(255, 255, 255, .12);
+  margin-top: 22px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.boot-bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--grad);
+  transition: width 380ms linear;
+}
+
+.boot-skip {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .06em;
+  color: #6E748F;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  min-height: 44px;
+  padding: 0 20px;
+  transition: color 180ms ease;
+}
+.boot-skip:hover { color: var(--violet-3); }
+.curtain :focus-visible { outline-color: var(--violet-3); }
+
+@media (max-width: 560px) {
+  .boot {
+    padding: max(22px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right))
+             max(22px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+  }
+  .boot-line { font-size: 11.5px; gap: 10px; }
+  .boot-line span:first-child {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .boot-line span:last-child { flex: none; text-align: right; }
+}
+
+@media (max-width: 380px) {
+  .boot-line { font-size: 10.5px; }
+}

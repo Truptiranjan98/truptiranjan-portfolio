@@ -1,0 +1,45 @@
+.resume-band {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 20px;
+  padding: 46px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: center;
+  box-shadow: var(--shadow-lg);
+}
+.resume-band::after {
+  content: "";
+  position: absolute;
+  bottom: -60%;
+  left: -8%;
+  width: 55%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(109, 43, 240, .5), transparent 66%);
+  pointer-events: none;
+}
+.resume-copy { position: relative; }
+.resume-band h2 { font-size: 2rem; margin-bottom: 12px; }
+.resume-band p { color: #A8AEC8; margin-bottom: 0; }
+
+.resume-actions {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.resume-band :focus-visible { outline-color: var(--violet-3); }
+
+@media (max-width: 860px) {
+  .resume-band { grid-template-columns: 1fr; padding: 32px; }
+  .resume-actions .btn { flex: 1 1 190px; }
+}
+
+@media (max-width: 560px) {
+  .resume-band { padding: 26px 22px; gap: 26px; border-radius: 16px; }
+  .resume-band h2 { font-size: 1.7rem; }
+}

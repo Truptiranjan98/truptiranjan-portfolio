@@ -1,0 +1,26 @@
+.foot {
+  border-top: 1px solid var(--line);
+  /* vertical only — the gutters belong to .foot-in, which carries .wrap */
+  padding-block: 30px 44px;
+  color: var(--muted);
+  font-size: .88rem;
+}
+
+.foot-in {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.foot-in a {
+  text-decoration: none;
+  color: var(--muted);
+  transition: color 200ms ease;
+}
+.foot-in a:hover { color: var(--violet-ink); }
+
+@media (max-width: 560px) {
+  .foot { padding-bottom: max(34px, env(safe-area-inset-bottom)); }
+}

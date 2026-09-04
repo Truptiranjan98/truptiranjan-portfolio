@@ -1,0 +1,174 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(245, 245, 250, .88);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+  padding-top: env(safe-area-inset-top);
+  border-bottom: 1px solid transparent;
+  transition: border-color 260ms ease, box-shadow 260ms ease, background 260ms ease;
+}
+.nav.stuck {
+  border-bottom-color: var(--line);
+  box-shadow: 0 8px 26px -22px rgba(14, 16, 32, .7);
+}
+
+.nav-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  pointer-events: none;
+}
+.nav-progress span {
+  display: block;
+  height: 100%;
+  background: var(--grad);
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+.nav.stuck .nav-progress span { opacity: 1; }
+
+.nav-in {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  height: var(--nav-h);
+  transition: height 260ms var(--ease);
+}
+.nav.stuck .nav-in { height: var(--nav-h-stuck); }
+
+.brand {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: -.02em;
+  text-decoration: none;
+  flex: none;
+}
+.brand i {
+  font-style: normal;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nav-links { display: flex; gap: 26px; align-items: center; }
+.nav-links a {
+  position: relative;
+  text-decoration: none;
+  font-size: .92rem;
+  color: var(--muted);
+  transition: color 200ms ease;
+}
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--grad);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 300ms var(--ease);
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a.on { color: var(--ink); font-weight: 600; }
+.nav-links a.on::after { transform: scaleX(1); }
+
+.nav-right { display: flex; align-items: center; gap: 10px; flex: none; }
+
+.tb-root .nav-cta {
+  text-decoration: none;
+  font-size: .87rem;
+  font-weight: 600;
+  background: var(--grad);
+  background-size: 160% 100%;
+  color: #fff;
+  padding: 9px 18px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+  transition: background-position 500ms var(--ease), transform 200ms var(--ease),
+              box-shadow 260ms var(--ease);
+}
+.nav-cta:hover {
+  background-position: 100% 0;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+.menu-btn {
+  display: none;
+  background: var(--surface);
+  border: 1px solid var(--line-2);
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--ink);
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  padding: 0;
+}
+.menu-btn .bars { display: grid; gap: 4px; width: 17px; }
+.menu-btn .bars i {
+  display: block;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform 240ms var(--ease), opacity 180ms ease;
+}
+.menu-btn[aria-expanded="true"] .bars i:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] .bars i:nth-child(2) { opacity: 0; }
+.menu-btn[aria-expanded="true"] .bars i:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+.menu-panel { display: none; }
+
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .menu-btn { display: grid; }
+  .nav-cta { padding: 9px 15px; }
+
+  .menu-panel.open {
+    display: grid;
+    padding-bottom: max(14px, env(safe-area-inset-bottom));
+    padding-top: 6px;
+    border-top: 1px solid var(--line);
+    max-height: min(58vh, 420px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .menu-panel a {
+    text-decoration: none;
+    color: var(--ink-2);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 2px;
+    border-bottom: 1px solid var(--porcelain);
+  }
+  .menu-panel a.on { color: var(--violet-ink); font-weight: 600; }
+  .menu-panel .menu-mail {
+    border-bottom: 0;
+    color: var(--violet-ink);
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 420px) {
+  /* the pill and the burger together crowd a narrow bar — panel has the link */
+  .nav-cta { display: none; }
+}
+
+@media (hover: none) {
+  .nav-cta:hover { transform: none; }
+  .menu-panel a:active { color: var(--violet-ink); }
+}

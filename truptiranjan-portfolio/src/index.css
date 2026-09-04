@@ -1,0 +1,24 @@
+html {
+  scroll-behavior: smooth;
+  /* stops iOS Safari inflating text after a rotation */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html, body, #root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  min-width: 320px;
+  background: #F5F5FA;
+  /* horizontal clamp lives here, not on a descendant, so position: sticky
+     inside the app keeps working */
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
