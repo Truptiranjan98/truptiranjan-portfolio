@@ -1,7 +1,7 @@
 /* Single source of truth for identity + links.
    Change a link here and it updates everywhere on the page. */
 
-const RESUME_ID = "1nRMxZSFrub46uKi0bls4q0KBo7ce84Ro";
+const RESUME_ID = "1WeZ-RDidEmtn97tfcnevYFsIcdNBpsyu";
 
 export const PROFILE = {
   firstName: "Truptiranjan",
